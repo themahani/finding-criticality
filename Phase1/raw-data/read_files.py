@@ -9,7 +9,7 @@ def read_files() -> list:
 
 def main():
     """ main body """
-    print(read_files())
+    print(len(read_files()))
 
 
 if __name__ == "__main__":
