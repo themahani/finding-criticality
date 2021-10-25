@@ -65,7 +65,7 @@ def main():
     y_unbasket = data[1:]
     z_unbasket = (y_unbasket != 0)
 
-    x_basket, y_basket = basketing_special(data, 0, 1000)
+    x_basket, y_basket = basketing_special(data, data[0], 200)
 
     fix , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
 
