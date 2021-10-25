@@ -57,15 +57,16 @@ def basketing_special(y: np.ndarray, x_start: int,
 def main():
     """ main body """
     filepaths = read_files()    # find all the data files
-    index = 1034                # choose one file
+    index = 8250                # choose one file
     file = filepaths[index]
+    print(file)
 
     data = np.load(file)
     x_unbasket = np.arange(data[0], data[0] + len(data) - 1)
     y_unbasket = data[1:]
     z_unbasket = (y_unbasket != 0)
 
-    x_basket, y_basket = basketing_special(data, data[0], 200)
+    x_basket, y_basket = basketing_special(data[1:], data[0], 75, 0.7)
 
     fix , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
 
