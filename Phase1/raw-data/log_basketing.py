@@ -56,6 +56,14 @@ def basketing_special(y: np.ndarray, x_start: int,
 
     return x,z
 
+def save_data(x: np.ndarray, y: np.ndarray, filepath: str):
+    """ save the arrays in files """
+    fp_prefix = "basket/"
+    directory_struct = filepath.split('/')
+    print(directory_struct)
+    np.save(x, fp_prefix + directory_struct[0] + "x_" + directory_struct[1])
+    np.save(y, fp_prefix + directory_struct[0] + "y_" + directory_struct[1])
+
 def main():
     """ main body """
     filepaths = read_files()    # find all the data files
@@ -70,17 +78,19 @@ def main():
 
     x_basket, y_basket = basketing_special(data[1:], data[0], 75, 0.7)
 
-    fig , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+    # fig , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
 
-    ax[0].loglog()
-    ax[0].scatter(x_unbasket[z_unbasket],
-            y_unbasket[z_unbasket] / y_unbasket.sum(), s=5)
-    ax[0].set_title("raw data")
+    # ax[0].loglog()
+    # ax[0].scatter(x_unbasket[z_unbasket],
+    #         y_unbasket[z_unbasket] / y_unbasket.sum(), s=5)
+    # ax[0].set_title("raw data")
 
-    ax[1].loglog()
-    ax[1].scatter(x_basket, y_basket / y_basket.sum(), s=5)
-    ax[1].set_title("basketed data")
-    plt.show()
+    # ax[1].loglog()
+    # ax[1].scatter(x_basket, y_basket / y_basket.sum(), s=5)
+    # ax[1].set_title("basketed data")
+    # plt.show()
+
+    save_data(x_basket, y_basket, file)
 
 
 if __name__ == "__main__":
