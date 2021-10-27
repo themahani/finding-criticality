@@ -5,7 +5,7 @@ from glob import glob
 
 def read_files() -> list:
     """ return the .npy files in this root directory """
-    return glob("**/*.npy")
+    return glob("unbasket/**/*.npy")
 
 def main():
     """ main body """
