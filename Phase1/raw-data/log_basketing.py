@@ -56,27 +56,31 @@ def basketing_special(y: np.ndarray, x_start: int,
 
     return x,z
 
+
 def save_data(x: np.ndarray, y: np.ndarray, filepath: str):
     """ save the arrays in files """
     fp_prefix = "basket/"
     directory_struct = filepath.split('/')
-    print(directory_struct)
-    np.save(x, fp_prefix + directory_struct[0] + "x_" + directory_struct[1])
-    np.save(y, fp_prefix + directory_struct[0] + "y_" + directory_struct[1])
+    # print(directory_struct)
+    np.save(fp_prefix + directory_struct[1] + "/x_" + directory_struct[-1], x)
+    np.save(fp_prefix + directory_struct[1] + "/y_" + directory_struct[-1], y)
 
 def main():
     """ main body """
     filepaths = read_files()    # find all the data files
-    index = 8250                # choose one file
-    file = filepaths[index]
-    print(file)
+    num = len(filepaths)
 
-    data = np.load(file)
-    x_unbasket = np.arange(data[0], data[0] + len(data) - 1)
-    y_unbasket = data[1:]
-    z_unbasket = (y_unbasket != 0)
+    for index, file in enumerate(filepaths): # loop over all the files
+        print(f"Loading file {index} of {num}", end="\r")
 
-    x_basket, y_basket = basketing_special(data[1:], data[0], 75, 0.7)
+        data = np.load(file)
+        x_unbasket = np.arange(data[0], data[0] + len(data) - 1)
+        y_unbasket = data[1:]
+        z_unbasket = (y_unbasket != 0)
+        # basketing the data
+        x_basket, y_basket = basketing_special(data[1:], data[0], 75, 0.7)
+
+        save_data(x_basket, y_basket, file) # save the data
 
     # fig , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
 
@@ -90,7 +94,6 @@ def main():
     # ax[1].set_title("basketed data")
     # plt.show()
 
-    save_data(x_basket, y_basket, file)
 
 
 if __name__ == "__main__":
