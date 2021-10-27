@@ -70,7 +70,7 @@ def main():
 
     x_basket, y_basket = basketing_special(data[1:], data[0], 75, 0.7)
 
-    fix , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+    fig , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
 
     ax[0].loglog()
     ax[0].scatter(x_unbasket[z_unbasket],
