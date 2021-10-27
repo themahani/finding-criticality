@@ -44,15 +44,15 @@ def basketing_special(y: np.ndarray, x_start: int,
     x = np.empty(num_of_dots,dtype=int)
     z[:bin_start_index] = y[:bin_start_index]
     x[:bin_start_index] = np.arange(x_start,bin_start_value)
-    
+
 
     bins2 = np.roll(new_bins,-1)
     dbins = bins2 - new_bins
     x[bin_start_index:] = (new_bins++bins2)/2
-        
-    for i,j in enumerate(range(bin_start_index,num_of_dots)):
-##        z[j] = y[new_bins[i]-x_start:bins2[i]-x_start].sum()/dbins[i]
+
+    for i,j in enumerate(range(bin_start_index,num_of_dots-1)):
         z[j] = y[new_bins[i]-x_start:bins2[i]-x_start].mean()
+    z[-1] = y[new_bins[-2]-x_start:].mean()
 
     return x,z
 
@@ -83,18 +83,6 @@ def main():
 
         save_data(x_basket, y_basket, file) # save the data
 
-    # fig , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
-
-    # ax[0].loglog()
-    # ax[0].scatter(x_unbasket[z_unbasket],
-    #         y_unbasket[z_unbasket] / y_unbasket.sum(), s=5)
-    # ax[0].set_title("raw data")
-
-    # ax[1].loglog()
-    # ax[1].scatter(x_basket, y_basket / y_basket.sum(), s=5)
-    # ax[1].set_title("basketed data")
-    # plt.show()
-
 def test():
     """ test body """
     filepaths = read_files()    # find all the data files
@@ -122,6 +110,21 @@ def test():
     ax[1].set_title("basketed data")
     plt.show()
 
+def test2():
+    x = np.arange(2, 1000)
+    y = 1000 + 1 / np.log(x)
+
+    x_basket, y_basket = basketing_special(y, x[0], 100)
+
+    # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+
+    # ax[0].scatter(x, y, s=5)
+    # ax[1].scatter(x_basket, y_basket, s=5)
+    plt.scatter(x, y, s=5)
+    plt.scatter(x_basket, y_basket, s=3)
+
+    plt.show()
+
 
 if __name__ == "__main__":
-    test()
+    main()
