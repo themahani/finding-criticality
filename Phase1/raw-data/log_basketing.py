@@ -79,6 +79,7 @@ def main():
         z_unbasket = (y_unbasket != 0)
         # basketing the data
         x_basket, y_basket = basketing_special(data[1:], data[0], 75, 0.7)
+        z_basket = (y_basket != 0)
 
         save_data(x_basket, y_basket, file) # save the data
 
@@ -94,7 +95,33 @@ def main():
     # ax[1].set_title("basketed data")
     # plt.show()
 
+def test():
+    """ test body """
+    filepaths = read_files()    # find all the data files
+    index = 8450
+    file = filepaths[index]
+
+    data = np.load(file)
+
+    x_unbasket = np.arange(data[0], data[0] + len(data) - 1)
+    y_unbasket = data[1:]
+    z_unbasket = (y_unbasket != 0)
+    # basketing the data
+    x_basket, y_basket = basketing_special(data[1:], data[0], 75, 0.7)
+    z_basket = (y_basket != 0)
+
+    fig , ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 8))
+
+    ax[0].loglog()
+    ax[0].scatter(x_unbasket[z_unbasket],
+            y_unbasket[z_unbasket] / y_unbasket.sum(), s=5)
+    ax[0].set_title("raw data")
+
+    ax[1].loglog()
+    ax[1].scatter(x_basket[z_basket], y_basket[z_basket] / y_basket.sum(), s=5)
+    ax[1].set_title("basketed data")
+    plt.show()
 
 
 if __name__ == "__main__":
-    main()
+    test()
