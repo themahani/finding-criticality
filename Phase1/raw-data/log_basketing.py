@@ -44,13 +44,15 @@ def basketing_special(y: np.ndarray, x_start: int,
     x = np.empty(num_of_dots,dtype=int)
     z[:bin_start_index] = y[:bin_start_index]
     x[:bin_start_index] = np.arange(x_start,bin_start_value)
-    x[bin_start_index:] = new_bins
+    
 
     bins2 = np.roll(new_bins,-1)
     dbins = bins2 - new_bins
-
+    x[bin_start_index:] = (new_bins++bins2)/2
+        
     for i,j in enumerate(range(bin_start_index,num_of_dots)):
-        z[j] = y[new_bins[i]-x_start:bins2[i]-x_start].sum()/dbins[i]
+##        z[j] = y[new_bins[i]-x_start:bins2[i]-x_start].sum()/dbins[i]
+        z[j] = y[new_bins[i]-x_start:bins2[i]-x_start].mean()
 
     return x,z
 
