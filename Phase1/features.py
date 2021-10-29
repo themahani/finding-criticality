@@ -50,6 +50,17 @@ def bump(x: np.ndarray, y: np.ndarray):
                 c2 = c2 + 1
     return c1, c2
 
+def s_moghimi(x: np.ndarray, y: np.ndarray):
+    # mask the data for log scale
+    mask = (y != 0)
+    # implement the log scale
+    x = np.log(x[mask])
+    y = np.log(y[mask])
+    #moghimi's feature
+    s = x
+    S = np.sum(s**3) * np.sum(s)/(np.sum(s**2)) **2
+    return S
+
 
 def test():
     """ main body to test your code """
