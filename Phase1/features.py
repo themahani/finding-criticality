@@ -30,7 +30,7 @@ def curvature(x: np.ndarray, y: np.ndarray) -> float:
     return np.mean(curve[:len(curve) // 2 + 1])
 
 def bump(x: np.ndarray, y: np.ndarray):
-    """ find number of bumps and inflactions points """
+    """ find number of bumps and inflections points """
     # mask the data for log scale
     mask = (y != 0)
     # implement the log scale

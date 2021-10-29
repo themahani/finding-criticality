@@ -22,18 +22,26 @@ def main():
     for file in x_files:
         y_files.append(file.replace('x', 'y'))
 
-    # print("x_files: \n", x_files[5])
-    # print("\n\n y_files\n", y_files[5])
+    _data = []
     for i in range(len(x_files)):
         print(f"Labeling file {i} of {len(x_files)} files...", end="\r")
         x = np.load(x_files[i])
         y = np.load(y_files[i])
 
-        d_bump = bump(x, y)
+        d_bump1, d_bump2 = bump(x, y)
         d_curvature = curvature(x, y)
         d_mini, d_maxi, d_xmin, d_xmax, d_ymin, d_ymax = minmax(x, y)
         d_s = s_moghimi(x, y)
         label = is_critical(x_files[i])
+        _data.append([d_bump1, d_bump2, d_curvature, d_mini, d_maxi, d_xmin, d_xmax,
+                      d_ymin, d_ymax, d_s, label])
+
+    data_frame = pd.DataFrame(_data, columns=['# of bumps', '# of inflections',
+        'curvature', 'min i', 'max i', 'x min', 'x max', 'y min', 'y max',
+        'S', 'criticality'])
+    print("Writing dataframe to csv...")
+    data_frame.to_csv('main_data.csv')
+
 
     x = np.load(x_files[5])
     y = np.load(y_files[5])
