@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ignore tex compile files
+*.log
+*.out
+*.synctex.gz
+*.aux
