@@ -21,9 +21,11 @@ def derivative(x: np.ndarray, y: np.ndarray) -> float:
 
 def curvature(x: np.ndarray, y: np.ndarray) -> float:
     """ Find the mean curvature of the first half of the data as a label """
+    # mask the data for log scale
+    mask = (y != 0)
     # implement the log scale
-    x = np.log(x)
-    y = np.log(y)
+    x = np.log(x[mask])
+    y = np.log(y[mask])
     _, curve = d12(x, y)
     return np.mean(curve[:len(curve) // 2 - 1])
 
