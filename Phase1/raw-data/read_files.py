@@ -3,9 +3,9 @@
 
 from glob import glob
 
-def read_files() -> list:
+def read_files(fp_prefix: str = "unbasket/") -> list:
     """ return the .npy files in this root directory """
-    return glob("unbasket/**/*.npy")
+    return glob(fp_prefix + "**/*.npy")
 
 def main():
     """ main body """
