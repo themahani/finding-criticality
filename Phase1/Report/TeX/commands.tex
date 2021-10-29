@@ -1,0 +1,124 @@
+\usepackage[explicit]{titlesec}	
+\usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{anyfontsize}
+\usepackage{xstring}
+\usepackage{xargs}
+\usepackage{makeidx}
+\usepackage{cancel}
+\usepackage{fancyhdr}
+\usepackage{chngcntr}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{latexsym}
+\usepackage{verbatim}
+\usepackage{enumitem,amsmath,array}
+\usepackage{tkz-graph}
+\usepackage{bookmark}
+\usepackage{csquotes}
+\usetikzlibrary{positioning,chains,fit,shapes,calc,decorations.markings,decorations.pathreplacing,arrows.meta}
+\usepackage[a4paper,left=2cm,right=2cm,top=3cm,bottom=2.4cm]{geometry}
+\usepackage{listings}
+%\usepackage{clrscode3e}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
+
+\usepackage[]{xepersian}
+\usepackage{bidicontour}
+\usepackage{bidi}
+\bidicontourlength{1pt}
+
+\settextfont[BoldFont=HM XNiloofarBd.ttf, ItalicFont=HM XNiloofarIt.ttf, BoldItalicFont=HM XNiloofarBdIt.ttf]{HM XNiloofar.ttf}
+\setdigitfont[BoldFont=HM XNiloofarBd.ttf, ItalicFont=HM XNiloofarIt.ttf, BoldItalicFont=HM XNiloofarBdIt.ttf]{HM XNiloofar.ttf}
+
+\ExplSyntaxOn
+\cs_new_eq:NN \calc \fp_eval:n
+\ExplSyntaxOff
+
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.9em}
+\renewcommand{\baselinestretch}{1.4}
+
+\def\chapterfont{25}
+
+\newcounter{mytheorem}
+\newcounter{mysection}
+\counterwithin{figure}{section}
+
+\fancypagestyle{mypagestyle}{%
+	\fancyfoot{}
+	\fancyhf{}
+	\fancyhead[R]{}
+	\fancyhead[L]{}
+	\fancyfoot[C]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+}
+\pagestyle{mypagestyle}
+
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{0pt}%
+	{3.5ex plus 1ex minus .2ex}%
+	{2.3ex plus .2ex}%
+	{\setcounter{equation}{0}\setcounter{mytheorem}{0}\normalfont\Large\bfseries}}
+\makeatother
+
+\renewcommand\theequation{\thesection.\arabic{equation}}
+\renewcommand\themytheorem{\thesection.\arabic{mytheorem}}
+
+
+\newenvironment{mytheorem}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{قضیه‌ی \themytheorem \ #1}\itshape
+}{}
+
+\newenvironment{mylemma}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{لم \themytheorem \ #1}\itshape
+}{}
+
+\newenvironment{mydef}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{تعریف \themytheorem \ #1}\ \itshape
+}{}
+
+\newenvironment{myprop}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{گزاره‌ی \themytheorem \ #1}\itshape
+}{}
+
+\newenvironment{mymol}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{ملاحظه‌ی \themytheorem \ #1}\itshape
+}{}
+
+\newenvironment{mynat}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{نتیجه‌ی \themytheorem \ #1}\itshape
+}{}
+
+\newenvironment{myprob}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{مسئله‌ی \themytheorem \ #1}\itshape
+}{}
+
+\newenvironment{myguess}[1]{\refstepcounter{mytheorem} \vspace*{.2cm}\noindent
+	\textbf{حدس \themytheorem \ #1}\itshape
+}{}
+
+\newenvironment{example}
+{\smallskip \noindent \emph{مثال:}}
+{\hfill $\boxtimes$ \smallskip}
+
+\newenvironment{myproof}{\noindent\textit{برهان.}}{\hfill $\square$}
+
+\newcommand{\set}[2]{\left\{#1 \ \middle|\ #2\right\}}
+\newcommand{\seq}[4]{%
+	\IfEqCase{#4}{%
+		{var}{\left\{#1_{#2},#1_{#2+1},\dots,#1_{#3}\right\}}
+		{num}{\left\{#1_{#2},#1_{\calc{#2+1}},\dots,#1_{#3}\right\}}
+	}
+}
+\newcommand{\te}[1]{\text{\lr{#1}}}
+\newcommand{\trans}[2]{#1\LTRfootnote{#2}}
