@@ -85,12 +85,12 @@ def minmax(x: np.ndarray, y: np.ndarray) -> list:
     ymaxi = np.where(y==yprime[maxi])[0][0]
 
     threshold=30
-    if np.abs(mini-maxi)>threshold:
-        mini= -1
-        maxi= -1
+    if np.abs(ymini-ymaxi)>threshold:
+        ymini= -1
+        ymaxi= -1
 
     ysum=y.sum()
-    arr= [mini,maxi,np.log(x[mini]),np.log(x[maxi]),np.log(y[mini]/ysum),np.log(y[maxi]/ysum)]
+    arr= [ymini,ymaxi,np.log(x[ymini]),np.log(x[ymaxi]),np.log(y[ymini]/ysum),np.log(y[ymaxi]/ysum)]
     return arr
 
 
