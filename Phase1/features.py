@@ -27,7 +27,7 @@ def curvature(x: np.ndarray, y: np.ndarray) -> float:
     x = np.log(x[mask])
     y = np.log(y[mask])
     _, curve = d12(x, y)
-    return np.mean(curve[:len(curve) // 2 - 1])
+    return np.mean(curve[:len(curve) // 2 + 1])
 
 def bump(x: np.ndarray, y: np.ndarray):
     """ find number of bumps and inflactions points """
