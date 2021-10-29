@@ -18,7 +18,7 @@ def is_critical(filepath: str):
     Size=[1000,2000,4000]
     n=[]
     for i in range(len(Size)):  #the address for phase portrait must be changed
-        n.append(np.load('raw-data/regions/phaseportrait_N'+str(Size[i])+'.npy'))
+        n.append(np.load('raw_data/regions/phaseportrait_N'+str(Size[i])+'.npy'))
     # x=np.load(filepath)
     data_param = paramsplit(filepath)
     N,w_raw,b= data_param[0], data_param[-2], data_param[-1]
