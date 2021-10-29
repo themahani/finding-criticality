@@ -29,8 +29,26 @@ def curvature(x: np.ndarray, y: np.ndarray) -> float:
     _, curve = d12(x, y)
     return np.mean(curve[:len(curve) // 2 - 1])
 
-def bump():
-    pass
+def bump(x: np.ndarray, y: np.ndarray):
+    """ find number of bumps and inflactions points """
+    # mask the data for log scale
+    mask = (y != 0)
+    # implement the log scale
+    x = np.log(x[mask])
+    y = np.log(y[mask])
+    drv1, drv2 = d12(x, y)
+    #number of bumps and Inflection Points
+    c1 = 0
+    c2 = 0
+    for i in range(len(drv1)):
+        if drv1[i] == 0:
+            if i<len(drv1)-2 and drv1[i-1] != 0 and drv1[i+1] != 0 and drv1[i-2] != 0 and drv1[i+2] != 0:
+                c1 = c1 + 1
+        #Inflection Points
+        elif drv2[i] == 0:
+            if i< len(drv1) - 1 and drv2[i-1]*drv2[i+1] < 0 :
+                c2 = c2 + 1
+    return c1, c2
 
 
 def test():
