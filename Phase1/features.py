@@ -7,14 +7,25 @@ and returns integers or floats to form a dataframe
 
 import numpy as np
 
+
+def d12 (x, y):
+    """ calculate the 1st and 2nd derivatives of data """
+    drv1 = np.diff(y) / np.diff(x)
+    idrv1 = np.diff(drv1)
+    idrv1 = np.insert(idrv1, len(idrv1), 0)
+    drv2 = idrv1 / np.diff(x)
+    return drv1, drv2
+
 def derivative(x: np.ndarray, y: np.ndarray) -> float:
     pass
 
-def second_derivative(x: np.ndarray, y: np.ndarray) -> float:
-    pass
-
-def curvature():
-    pass
+def curvature(x: np.ndarray, y: np.ndarray) -> float:
+    """ Find the mean curvature of the first half of the data as a label """
+    # implement the log scale
+    x = np.log(x)
+    y = np.log(y)
+    _, curve = d12(x, y)
+    return np.mean(curve[:len(curve) // 2 - 1])
 
 def bump():
     pass
