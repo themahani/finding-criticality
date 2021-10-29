@@ -6,7 +6,7 @@ and returns integers or floats to form a dataframe
 """
 
 import numpy as np
-
+from scipy.signal import argrelextrema
 
 def d12 (x, y):
     """ calculate the 1st and 2nd derivatives of data """
@@ -60,6 +60,38 @@ def s_moghimi(x: np.ndarray, y: np.ndarray):
     s = x
     S = np.sum(s**3) * np.sum(s)/(np.sum(s**2)) **2
     return S
+
+def minmax(x: np.ndarray, y: np.ndarray) -> list:
+    yprime=y[np.where(y!=0)]
+    z= (y!=0)
+
+    nmin=3
+    nmax=3
+    minlist=list(argrelextrema(yprime, np.less_equal ,order=nmin))[-1]
+    maxlist=list(argrelextrema(yprime, np.greater_equal ,order=nmax))[-1]
+
+    maxi=maxlist[-1]
+    mini=minlist[-1]
+
+    if len(minlist)>1:
+        for i in range(len(minlist)):
+                if mini>= maxi:
+                    mini= minlist[-(1+i)]
+                else:
+                    break
+                i+=1
+
+    ymini = np.where(y==yprime[mini])[0][0]
+    ymaxi = np.where(y==yprime[maxi])[0][0]
+
+    threshold=30
+    if np.abs(mini-maxi)>threshold:
+        mini= -1
+        maxi= -1
+
+    ysum=y.sum()
+    arr= [mini,maxi,np.log(x[mini]),np.log(x[maxi]),np.log(y[mini]/ysum),np.log(y[maxi]/ysum)]
+    return arr
 
 
 def test():
