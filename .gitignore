@@ -133,3 +133,6 @@ dmypy.json
 *.out
 *.synctex.gz
 *.aux
+
+# ignore test folder
+test/
